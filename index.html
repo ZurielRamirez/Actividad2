@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 2</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    
+    <div class="main-container">
+        <header class="logos-header">
+            <img src="img/tecnm.png" alt="TecNM" class="logo-tecnm">
+            <img src="img/ito.png" alt="ITO" class="logo-ito">
+        </header>
+
+        <nav class="auth-nav">
+            <a href="index.html" class="nav-item active">Registro</a>
+            <a href="login.html" class="nav-item">Login</a>
+        </nav>
+
+        <main class="auth-panel">
+            <form id="registroForm" class="auth-form">
+                <p class="panel-instruction">Ingresa al sistema de preinscripciones</p>
+                
+                <div class="form-group">
+                    <input type="text" id="nombre" required placeholder="Nombre completo">
+                    <span class="error-msg" id="err-nombre"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" id="correo" required placeholder="Correo electrónico">
+                    <span class="error-msg" id="err-correo"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="telefono" required placeholder="Teléfono (Mínimo/Máximo 10 dígitos)">
+                    <span class="error-msg" id="err-telefono"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaNac">Fecha de Nacimiento</label>
+                    <input type="date" id="fechaNac" required>
+                    <span class="error-msg" id="err-fecha"></span>
+                </div>
+
+                <button type="submit" class="auth-submit">Registrar Datos</button>
+            </form>
+        </main>
+    </div>
+
+    <dialog id="modalEdad">
+        <h3>Procesamiento Exitoso</h3>
+        <p id="modalTxtEdad"></p>
+        <p id="modalTxtExtra"></p>
+        <button id="closeModal" class="modal-close">Cerrar</button>
+    </dialog>
+
+    <script src="js/utileria.js"></script>
+    <script>
+
+        document.getElementById('telefono').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        document.getElementById('registroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.error-msg').forEach(el => el.textContent = '');
+            
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const telefono = document.getElementById('telefono').value;
+            const fechaNac = document.getElementById('fechaNac').value;
+
+            console.log("Nombre válido (soloLetras):", soloLetras(nombre));
+            console.log("Correo válido (validarCorreo):", validarCorreo(correo));
+            console.log("Teléfono válido (validarLongitud):", validarLongitud(telefono, 10));
+            console.log("¿Es mayor de edad? (esMayorDeEdad):", esMayorDeEdad(fechaNac));
+            
+            let valido = true;
+
+            if (!soloLetras(nombre)) {
+                document.getElementById('err-nombre').textContent = 'El nombre solo debe contener letras.';
+                valido = false;
+            }
+            if (!validarCorreo(correo)) {
+                document.getElementById('err-correo').textContent = 'Formato de correo electrónico no válido.';
+                valido = false;
+            }
+            
+
+            if (!validarLongitud(telefono, 10)) {
+                document.getElementById('err-telefono').textContent = 'El teléfono debe tener exactamente 10 dígitos.';
+                valido = false;
+            }
+            if (!esMayorDeEdad(fechaNac)) {
+                document.getElementById('err-fecha').textContent = 'Debes ser mayor de edad para registrarte.';
+                valido = false;
+            }
+
+            if (valido) {
+                const nombreLimpio = capitalizarTexto(nombre);
+                const edadCalculada = calcularEdad(fechaNac);
+
+                document.getElementById('modalTxtEdad').textContent = `¡Hola ${nombreLimpio}! Hemos calculado tu edad: tienes ${edadCalculada} años.`;
+                document.getElementById('modalTxtExtra').textContent = `Validaciones aprobadas al 100%.`;
+                document.getElementById('modalEdad').showModal();
+            }
+        });
+
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('modalEdad').close();
+            document.getElementById('registroForm').reset();
+        });
+    </script>
+</body>
+</html>

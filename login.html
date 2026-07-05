@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    
+    <div class="main-container">
+        <header class="logos-header">
+            <img src="img/tecnm.png" alt="TecNM" class="logo-tecnm">
+            <img src="img/ito.png" alt="ITO" class="logo-ito">
+        </header>
+
+        <nav class="auth-nav">
+            <a href="index.html" class="nav-item">Registro</a>
+            <a href="login.html" class="nav-item active">Login</a>
+        </nav>
+
+        <main class="auth-panel">
+            <form id="loginForm" class="auth-form">
+                <p class="panel-instruction">Ingresa al sistema de preinscripciones</p>
+                
+                <div class="form-group">
+                    <input type="email" id="loginCorreo" required placeholder="Correo electrónico">
+                    <span class="error-msg" id="err-login-correo"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="loginPass" required placeholder="Contraseña">
+                    <span class="error-msg" id="err-login-pass"></span>
+                </div>
+
+                <button type="submit" class="auth-submit">Comprobar Credenciales</button>
+            </form>
+        </main>
+    </div>
+
+    <script src="js/utileria.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.error-msg').forEach(el => el.textContent = '');
+
+            const correo = document.getElementById('loginCorreo').value;
+            const pass = document.getElementById('loginPass').value;
+            let valido = true;
+            console.log("Correo válido (validarCorreo):", validarCorreo(correo));
+            console.log("Contraseña segura (validarPassword):", validarPassword(pass));
+
+            if (!validarCorreo(correo)) {
+                document.getElementById('err-login-correo').textContent = 'El formato de correo no es válido.';
+                valido = false;
+            }
+
+            if (!validarPassword(pass)) {
+                document.getElementById('err-login-pass').textContent = 'La contraseña no cumple con los requisitos de seguridad.';
+                valido = false;
+            }
+
+            if (valido) {
+                alert('¡Acceso concedido! Credenciales correctas');
+            }
+        });
+    </script>
+</body>
+</html>
