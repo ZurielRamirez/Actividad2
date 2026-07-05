@@ -1,106 +1,209 @@
-# Librería Modular de Validación y Procesamiento: utileria.js
+#  Utilería de Validaciones y Formateo en JavaScript
 
-**Desarrollado por:** Zuriel Ramirez  
-**Problema que resuelve:** Simplifica y centraliza la validación de formularios web y el procesamiento de datos del lado del cliente. Evita la acumulación de expresiones regulares y lógica repetitiva en las vistas (HTML), aislando las reglas de negocio en un núcleo limpio, reutilizable y fácil de auditar mediante la consola del navegador.
+## Autor
+** Amisadai Zuriel Bautista Ramírez**
 
 ---
 
-##  Instalación
+# Problema que resuelve
 
-Para integrar esta librería en cualquier proyecto web, basta con colocar el archivo `utileria.js` en tu directorio de scripts e incluir la siguiente etiqueta al final del archivo HTML, justo antes del cierre de la etiqueta `</body>`:
+Esta librería proporciona un conjunto de funciones reutilizables para validar información ingresada por el usuario y realizar formateo de datos de manera sencilla.
 
-html
-<script src="js/utileria.js"></script>
-A continuación, se muestran los fragmentos de código real implementados en la librería y cómo se ejecutan dentro del sistema:
-1. Validación de Correo Electrónico
-Comprueba que el string cumpla con la estructura estándar de un email mediante expresiones regulares.
-JavaScript
-function validarCorreo(correo) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(correo);
-}
+Su objetivo es reducir la cantidad de código repetitivo en aplicaciones web y facilitar tareas comunes como:
 
-// Ejemplo de uso en el sistema:
-console.log(validarCorreo("correo@dominio.com")); // Retorna: true
-console.log(validarCorreo("correo-invalido"));    // Retorna: false
-2. Validación de Longitud Exacta (Teléfono)
-Evalúa que la extensión de un campo sea estrictamente igual al parámetro requerido,允許 la captura libre en el HTML para atrapar errores por exceso o falta de dígitos.
-JavaScript
-function validarLongitud(numero, maxLongitud) {
-    return String(numero).trim().length === maxLongitud;
-}
+- ✅ Validar correos electrónicos.
+- ✅ Verificar la longitud de un teléfono.
+- ✅ Permitir únicamente letras en nombres.
+- ✅ Validar contraseñas seguras.
+- ✅ Calcular la edad de una persona.
+- ✅ Determinar si un usuario es mayor de edad.
+- ✅ Capitalizar textos automáticamente.
+- ✅ Formatear cantidades de dinero en pesos mexicanos.
 
-// Ejemplo de uso en el sistema (Evaluando 10 dígitos obligatorios):
-console.log(validarLongitud("9511234567", 10));    // Retorna: true
-console.log(validarLongitud("9511234567890", 10)); // Retorna: false (Exceso)
+---
 
-3. Filtro de Solo Letras (Nombre)
-Garantiza que cadenas destinadas a nombres propios no contengan números ni caracteres especiales dañinos.
-JavaScript
-function soloLetras(texto) {
-    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-    return regex.test(texto);
-}
+# Instalación
 
-// Ejemplo de uso en el sistema:
-console.log(soloLetras("Zuriel Ramirez")); // Retorna: true
-console.log(soloLetras("Zuriel123"));     // Retorna: false
+Descarga el archivo **utileria.js** y colócalo dentro de tu proyecto.
 
-4. Control de Seguridad en Contraseñas
-Fuerza al usuario a cumplir con políticas de seguridad alta (mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial).
-JavaScript
-function validarPassword(password) {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
-    return regex.test(password);
-}
+Después importa la librería antes de cerrar la etiqueta `<body>`.
 
-// Ejemplo de uso en el sistema:
-console.log(validarPassword("Temporal.1")); // Retorna: true
-console.log(validarPassword("12345"));      // Retorna: false
+```html
+<script src="utileria.js"></script>
+```
 
-5. Control de Edad y Restricción de Menores
-Calcula la edad exacta restando los años y ajustando por meses/días pendientes. Posteriormente, evalúa el umbral legal.
-JavaScript
-function calcularEdad(fechaNacimiento) {
-    const hoy = new Date();
-    const cumpleanos = new Date(fechaNacimiento);
-    let edad = hoy.getFullYear() - cumpleanos.getFullYear();
-    const mes = hoy.getMonth() - cumpleanos.getMonth();
-    
-    if (mes < 0 || (mes === 0 && hoy.getDate() < cumpleanos.getDate())) {
-        edad--;
-    }
-    return edad;
-}
+Ahora todas las funciones estarán disponibles para utilizarlas.
 
-function esMayorDeEdad(fechaNacimiento) {
-    return calcularEdad(fechaNacimiento) >= 18;
-}
+---
 
-// Ejemplo de uso en el sistema:
-console.log(esMayorDeEdad("2000-05-15")); // Retorna: true
+# Uso
 
-6. Optimización y Formateo de Texto (Sección Libre)
-Elimina espacios duplicados accidentales y transforma la cadena a formato de nombre propio (Capital Letter).
-JavaScript
-function capitalizarTexto(texto) {
-    return texto
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, ' ')
-        .replace(/\b\w/g, l => l.toUpperCase());
-}
+## 1. Validación de correo electrónico
 
-// Ejemplo de uso en el sistema:
-console.log(capitalizarTexto("   zuriel    ramirez  ")); // Retorna: "Zuriel Ramirez"
+Comprueba que el texto tenga el formato correcto de un correo electrónico.
 
-7. Formateo de Divisas Localizadas (Sección Libre)
-Transforma entradas numéricas planas a strings con formato contable de Moneda Nacional (MXN).
-JavaScript
-function formatearMoneda(cantidad) {
-    if (isNaN(cantidad)) return "$0.00";
-    return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(cantidad);
-}
+```javascript
+console.log(validarCorreo("correo@dominio.com"));
+// true
 
-// Ejemplo de uso en el sistema:
-console.log(formatearMoneda(2550.5)); // Retorna: "$2,550.50"
+console.log(validarCorreo("correo-invalido"));
+// false
+```
+
+---
+
+## 2. Validación de longitud
+
+Permite verificar que un dato tenga exactamente la longitud indicada.
+
+```javascript
+console.log(validarLongitud("9511234567",10));
+// true
+
+console.log(validarLongitud("9511234567890",10));
+// false
+```
+
+---
+
+## 3. Solo letras
+
+Valida que un texto contenga únicamente letras y espacios.
+
+```javascript
+console.log(soloLetras("Zuriel Ramirez"));
+// true
+
+console.log(soloLetras("Zuriel123"));
+// false
+```
+
+---
+
+## 4. Validación de contraseña segura
+
+Comprueba que la contraseña tenga:
+
+- Mínimo 8 caracteres
+- Una letra mayúscula
+- Una letra minúscula
+- Un número
+- Un carácter especial
+
+```javascript
+console.log(validarPassword("Temporal.1"));
+// true
+
+console.log(validarPassword("12345"));
+// false
+```
+
+---
+
+## 5. Cálculo de edad y mayoría de edad
+
+Calcula la edad de una persona y verifica si es mayor de edad.
+
+```javascript
+console.log(calcularEdad("2000-05-15"));
+// Ejemplo: 26
+
+console.log(esMayorDeEdad("2000-05-15"));
+// true
+```
+
+---
+
+## 6. Capitalizar texto
+
+Elimina espacios innecesarios y convierte el texto a formato de nombre propio.
+
+```javascript
+console.log(capitalizarTexto("   zuriel    ramirez  "));
+// "Zuriel Ramirez"
+```
+
+---
+
+## 7. Formatear moneda
+
+Convierte un número al formato de moneda mexicana (MXN).
+
+```javascript
+console.log(formatearMoneda(2550.5));
+// "$2,550.50"
+```
+
+---
+
+# Capturas de pantalla
+
+
+Ejemplo:
+
+```
+📁 README
+
+imagenes/
+│── correo.png
+│── telefono.png
+│── letras.png
+│── password.png
+│── edad.png
+│── capitalizar.png
+└── moneda.png
+```
+
+Después insertarlas así:
+
+```markdown
+## Error del registro
+
+![Registro](img/RegisErro.png)
+
+## Error en la consola
+
+![Consola](img/Error1.png)
+
+## Registro Correcto
+
+![Registro](img/RegisExi.png)
+
+## Consola correcta
+
+![Consola](img/Exi1.png)
+
+## Error en el login
+
+![Login](img/LogiErro.png)
+
+## Error en la consola
+
+![Consola](img/Erro2.png)
+
+## Login correcto
+
+![Login](img/LogiExi.png)
+
+## Consola correcta
+
+![Consola](img/Exi2.png)
+
+## Capitalizar
+
+![Consola](img/Capitalizar.png)
+
+## Moneda
+
+![Moneda](img/Moneda.png)
+```
+
+---
+
+
+
+
+
+# Conclusión
+
+La librería **utileria.js** reúne funciones de validación y formateo que son utilizadas frecuentemente durante el desarrollo de aplicaciones web. Al centralizar estas operaciones en un solo archivo, se mejora la reutilización del código, se disminuyen errores durante la captura de datos y se facilita el mantenimiento de los proyectos. Gracias a su implementación sencilla, puede integrarse fácilmente en cualquier aplicación JavaScript mediante una única referencia al archivo.
