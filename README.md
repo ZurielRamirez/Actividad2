@@ -159,43 +159,43 @@ Después insertarlas así:
 ```markdown
 ## Error del registro
 
-![Registro](img/RegisErro.png)
+![Registro](img/RegisErro.Png)
 
 ## Error en la consola
 
-![Consola](img/Error1.png)
+![Consola](img/Error1.Png)
 
 ## Registro Correcto
 
-![Registro](img/RegisExi.png)
+![Registro](img/RegisExi.Png)
 
 ## Consola correcta
 
-![Consola](img/Exi1.png)
+![Consola](img/Exi1.Png)
 
 ## Error en el login
 
-![Login](img/LogiErro.png)
+![Login](img/LogiErro.Png)
 
 ## Error en la consola
 
-![Consola](img/Erro2.png)
+![Consola](img/Erro2.Png)
 
 ## Login correcto
 
-![Login](img/LogiExi.png)
+![Login](img/LogiExi.Png)
 
 ## Consola correcta
 
-![Consola](img/Exi2.png)
+![Consola](img/Exi2.Png)
 
 ## Capitalizar
 
-![Consola](img/Capitalizar.png)
+![Consola](img/Capitalizar.Png)
 
 ## Moneda
 
-![Moneda](img/Moneda.png)
+![Moneda](img/Moneda.Png)
 ```
 
 ---
