@@ -139,24 +139,8 @@ console.log(formatearMoneda(2550.5));
 # Capturas de pantalla
 
 
-Ejemplo:
 
-```
-📁 README
-
-imagenes/
-│── correo.png
-│── telefono.png
-│── letras.png
-│── password.png
-│── edad.png
-│── capitalizar.png
-└── moneda.png
-```
-
-Después insertarlas así:
-
-```markdown
+markdown
 ## Error del registro
 
 ![Registro](img/RegisErro.Png)
@@ -196,7 +180,7 @@ Después insertarlas así:
 ## Moneda
 
 ![Moneda](img/Moneda.Png)
-```
+
 
 ---
 
