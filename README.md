@@ -143,43 +143,43 @@ console.log(formatearMoneda(2550.5));
 markdown
 ## Error del registro
 
-![Registro](img/RegisErro.Png)
+![Registro](img/RegisErro.png)
 
 ## Error en la consola
 
-![Consola](img/Error1.Png)
+![Consola](img/Error1.png)
 
 ## Registro Correcto
 
-![Registro](img/RegisExi.Png)
+![Registro](img/RegisExi.png)
 
 ## Consola correcta
 
-![Consola](img/Exi1.Png)
+![Consola](img/Exi1.png)
 
 ## Error en el login
 
-![Login](img/LogiErro.Png)
+![Login](img/LogiErro.png)
 
 ## Error en la consola
 
-![Consola](img/Erro2.Png)
+![Consola](img/Erro2.png)
 
 ## Login correcto
 
-![Login](img/LogiExi.Png)
+![Login](img/LogiExi.png)
 
 ## Consola correcta
 
-![Consola](img/Exi2.Png)
+![Consola](img/Exi2.png)
 
 ## Capitalizar
 
-![Consola](img/Capitalizar.Png)
+![Consola](img/Capitalizar.png)
 
 ## Moneda
 
-![Moneda](img/Moneda.Png)
+![Moneda](img/Moneda.png)
 
 
 ---
